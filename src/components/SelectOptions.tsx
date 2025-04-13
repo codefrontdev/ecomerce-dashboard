@@ -18,7 +18,7 @@ const SelectOptions: FC<SelectOptionsProps> = ({
     <div className='mb-4 flex justify-between'>
       <h2 className='text-2xl font-medium dark:text-white'>{title}</h2>
       <select
-        className='border-none outline-none p-2 rounded-md bg-gray-50 text-gray-400'
+        className='border-none outline-none p-2 rounded-md bg-gray-50 dark:bg-gray-950 cursor-pointer text-gray-400'
         value={range}
         onChange={handleRange}>
         {options.map((item, i) => (

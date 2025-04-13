@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState } from "react";
+import { FC, useState } from "react";
 import {
   Area,
   AreaChart,
@@ -49,7 +49,12 @@ const yearlyData = [
   { year: "2024", sales: 180000 },
 ];
 
-const SalesAnalytics = () => {
+interface AnalyticsProps {
+  title: string;
+  options: string[]
+}
+
+const Analytics: FC<AnalyticsProps> = ({title, options}) => {
   const [timeRange, setTimeRange] = useState("weekly");
   const [weeklyData, setWeeklyData] = useState(generateWeeklyData());
 
@@ -90,8 +95,8 @@ const SalesAnalytics = () => {
       <SelectOptions
         handleRange={handleTimeRangeChange}
         range={timeRange}
-        title='Sales Analytics'
-        options={["weekly", "monthly", "yearly"]}
+        title={title}
+        options={options}
       />
       {/* <div className='mb-4 flex justify-between'>
         <h2 className='text-2xl font-medium dark:text-white'>
@@ -180,4 +185,4 @@ const SalesAnalytics = () => {
   );
 };
 
-export default SalesAnalytics;
+export default Analytics;

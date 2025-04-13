@@ -14,7 +14,7 @@ const BtnFilter: React.FC<Props> = ({isActive, handleClick, text}) => {
       type='button'
       className='flex justify-between items-center gap-2 cursor-pointer'
       onClick={handleClick}>
-      <h3 className='dark:text-white text-2xl font-medium'>category</h3>
+      <h3 className='dark:text-white text-2xl font-medium capitalize'>{text}</h3>
       {isActive ? (
         <IoIosArrowDown className='text-gray-600 dark:text-gray-300' />
       ) : (

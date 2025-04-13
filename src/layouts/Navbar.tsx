@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import NotificationList from "../components/NotifacationList";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { AppDispatch } from "../redux/store";
 
 import {
   addNotification,
@@ -15,6 +16,7 @@ import {
   setError,
   NotificationType,
 } from "../features/notificationsSlice";
+import InfoClinent from "../components/InfoClinent";
 const mockNotifications = [
   {
     id: 1,
@@ -64,122 +66,109 @@ const mockNotifications = [
     message: "Notification 7",
     type: "success" as NotificationType,
     read: false,
-  }
+  },
 ];
 
-
-
-
-
 const Navbar = () => {
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const className = "flex items-center gap-4";
-  const { toggleHandler, theme } = useTheme();
-  const user = {
-    name: "John Doe",
-    avatar: "https://avatars.githubusercontent.com/u/47231161?v=4",
-    role: "Admin",
-  };
-
-  const [openNotifications, setOpenNotifications] = useState<boolean>(false);
-  
+  const dispatch = useDispatch<AppDispatch>();
   const notifications = useSelector(
     (state: RootState) => state.notifications.notifications
   );
+  const location = useLocation();
 
-  const fetchNotifications = async () => {
+  const { toggleHandler, theme } = useTheme();
+  const [openNotifications, setOpenNotifications] = useState(false);
+
+ 
+  const getPageTitle = () => {
+    if (location.pathname === "/") return "Dashboard";
+    const lastSegment = location.pathname.split("/").pop();
+    return lastSegment
+      ? decodeURIComponent(lastSegment).replace(/-/g, " ")
+      : "";
+  };
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
       dispatch(setLoading(true));
       try {
-        // في المستقبل، يمكن استبدال هذا بـ API حقيقي
-        const response = { data: mockNotifications }; // احصل على الإشعارات هنا
-        response.data.forEach((notification) => {
-          dispatch(addNotification(notification));
-        });
-        dispatch(setLoading(false));
-      } catch (err) {
+        mockNotifications.forEach((notification) =>
+          dispatch(addNotification(notification))
+        );
+      } catch {
         dispatch(setError("Failed to fetch notifications"));
+      } finally {
         dispatch(setLoading(false));
       }
     };
 
-    
-
-  useEffect(() => {
     fetchNotifications();
   }, [dispatch]);
 
   return (
-    <div className='flex justify-between items-center pr-10 py-5'>
-      <div className={className}>
+    <div className='flex justify-between items-center min-w-full pr-10 py-5'>
+      {/* العنوان والقائمة الجانبية */}
+      <div className='flex items-center gap-4'>
         <HiOutlineMenuAlt2 size={25} className='cursor-pointer text-teal-700' />
         <h1 className='text-3xl font-semibold dark:text-white capitalize'>
-          {location.pathname === "/"
-            ? "Dashboard"
-            : "Dashboard > " + location.pathname.slice(1)}
+          {getPageTitle()}
         </h1>
       </div>
-      <div className={className}>
-        <div className={className}>
-          <Search size={25} className='cursor-pointer text-teal-700' />
-          <div
-            className='relative'
-            onClick={() => setOpenNotifications(!openNotifications)}>
-          {notifications.length > 0 &&  <span className='absolute -top-1 -right-1.5 w-3.5 h-3.5 bg-red-500 text-[10px] text-white flex items-center justify-center rounded-full'>
-              {notifications.length}
-            </span>}
-            <Bell size={25} className='cursor-pointer text-teal-700' />
-            {openNotifications && (
-              <div className='absolute left-0 top-12 bg-white dark:bg-gray-700 shadow-lg rounded-lg w-64 p-4 z-10'>
-                <div className='relative border-b border-gray-400 dark:border-gray-600 pb-2 flex justify-between'>
-                  <h3 className='text-xl font-semibold dark:text-white'>Notifications</h3>
-                  <hr />
-                  <button
-                    className='absolute top-0 right-0 cursor-pointer text-red-500 hover:underline'
-                    onClick={() => setOpenNotifications(false)}>
-                    <X size={20} />
-                  </button>
-                </div>
-                <NotificationList notifications={notifications} />
-              </div>
-            )}
-          </div>
 
-          <div className='' onClick={toggleHandler}>
-            {theme === "dark" ? (
-              <Moon size={25} className='cursor-pointer text-teal-700' />
-            ) : (
-              <Sun size={25} className='cursor-pointer text-teal-700' />
-            )}
-          </div>
-          <div className='relative'>
-            <span className='absolute -top-1 -right-1.5 w-3.5 h-3.5 bg-[#15cab8] text-[10px] text-white flex items-center justify-center rounded-full'>
-              3
+      {/* أيقونات التحكم والإشعارات */}
+      <div className='flex items-center gap-4'>
+        <Search size={25} className='cursor-pointer text-teal-700' />
+
+        {/* أيقونة الإشعارات */}
+        <div
+          className='relative'
+          onClick={() => setOpenNotifications(!openNotifications)}>
+          {notifications.length > 0 && (
+            <span className='absolute -top-1 -right-1.5 w-3.5 h-3.5 bg-red-500 text-[10px] text-white flex items-center justify-center rounded-full'>
+              {notifications.length}
             </span>
-            <Link to='/cart'>
-              <ShoppingCart
-                size={25}
-                className='cursor-pointer text-teal-700'
-              />
-            </Link>
-          </div>
+          )}
+          <Bell size={25} className='cursor-pointer text-teal-700' />
+          {openNotifications && (
+            <div className='absolute left-0 top-12 bg-white dark:bg-gray-700 shadow-lg rounded-lg w-64 p-4 z-10'>
+              <div className='relative border-b border-gray-400 dark:border-gray-600 pb-2 flex justify-between'>
+                <h3 className='text-xl font-semibold dark:text-white'>
+                  Notifications
+                </h3>
+                <button
+                  className='absolute top-0 right-0 text-red-500 hover:underline'
+                  onClick={() => setOpenNotifications(false)}>
+                  <X size={20} />
+                </button>
+              </div>
+              <NotificationList notifications={notifications} />
+            </div>
+          )}
         </div>
+
+        {/* أيقونة تغيير الثيم */}
+        <div onClick={toggleHandler}>
+          {theme === "dark" ? (
+            <Moon size={25} className='cursor-pointer text-teal-700' />
+          ) : (
+            <Sun size={25} className='cursor-pointer text-teal-700' />
+          )}
+        </div>
+
+        {/* أيقونة عربة التسوق */}
+        <div className='relative'>
+          <span className='absolute -top-1 -right-1.5 w-3.5 h-3.5 bg-[#15cab8] text-[10px] text-white flex items-center justify-center rounded-full'>
+            3
+          </span>
+          <Link to='/cart'>
+            <ShoppingCart size={25} className='cursor-pointer text-teal-700' />
+          </Link>
+        </div>
+
+        {/* فاصل بين العناصر */}
         <div className='w-px h-10 bg-teal-700 mx-5' />
-        <div className='flex items-center gap-3'>
-          <img
-            src='https://avatars.githubusercontent.com/u/47231161?v=4'
-            alt='profile'
-            width={40}
-            height={40}
-            className='rounded-full cursor-pointer'
-          />
-          <div className='flex flex-col'>
-            <span className='text-sm font-semibold dark:text-white'>
-              {user.name}
-            </span>
-            <span className='text-xs text-gray-400'>{user.role}</span>
-          </div>
-        </div>
+
+        <InfoClinent />
       </div>
     </div>
   );

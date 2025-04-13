@@ -3,13 +3,7 @@
 import {
   Area,
   AreaChart,
-  CartesianGrid,
-  Line,
-  LineChart,
   ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
 } from "recharts";
 
 const data = [

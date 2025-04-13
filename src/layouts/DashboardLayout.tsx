@@ -3,18 +3,26 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import Navbar from "./Navbar";
-import { useTheme } from "../hooks/useTheme";
 const DashboardLayout = () => {
-  const { theme } = useTheme();
+  
   return (
-    <main
-      className={`container mx-auto w-full max-w-full flex p-5 gap-5 bg-[#fafaf2] dark:bg-gray-800 ${theme}`}>
-      <SideBar />
-      <div className='flex flex-col w-full'>
-        <Navbar />
-        <Outlet />
+    <>
+      <div className='flex-1 flex gap-4 min-w-full h-[calc(100vh - 100px)]'>
+        {/* Sidebar ثابت */}
+        <SideBar />
+
+        {/* الجزء الرئيسي */}
+        <div className='flex flex-col max-w-full w-full h-full'>
+          {/* Navbar ثابت */}
+          <Navbar />
+
+          {/* المحتوى القابل للتمرير */}
+          <div className='flex-1 overflow-y-auto max-h-full'>
+            <Outlet />
+          </div>
+        </div>
       </div>
-    </main>
+    </>
   );
 };
 
