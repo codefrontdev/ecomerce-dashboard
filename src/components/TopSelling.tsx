@@ -35,7 +35,7 @@ const TopSelling = () => {
         range={sortBy}
         title="Top Selling"
       />
-      <Table type="product id" columns={productColumns} data={topSelling} />
+      <Table columns={productColumns} data={topSelling} />
     </div>
   );
 };

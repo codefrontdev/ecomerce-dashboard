@@ -5,7 +5,6 @@ import { EllipsisVertical, Eye, Trash2 } from "lucide-react";
 import ActionModal from "../modals/ActionModal";
 import { FiEdit } from "react-icons/fi";
 import { User } from "../../types/users";
-import { strict } from "assert";
 import { deleteUser } from "../../features/usersSlice";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";

@@ -1,11 +1,9 @@
 /** @format */
 
-// hooks/useProductQuery.ts
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { debounce, pickBy } from "lodash";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
-import { getAllProducts } from "../features/productSlice";
 import { getAllCategories } from "../features/categoriesSlice";
 
 export interface Query {

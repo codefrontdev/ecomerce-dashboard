@@ -1,4 +1,5 @@
 /** @format */
+import { FC, lazy } from "react";
 
 const Btn = lazy(() => import("../../components/Btn"));
 import { FiEdit } from "react-icons/fi";
@@ -10,7 +11,6 @@ const ProductColors = lazy(
   () => import("../../components/products/ProductColor")
 );
 const Rating = lazy(() => import("../../components/products/Rating"));
-import { FC, lazy } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import LazyWrapper from "../../components/common/LazyWrapper";
 

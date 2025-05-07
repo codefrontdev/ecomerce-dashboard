@@ -1,7 +1,5 @@
 /** @format */
 
-import { ArrowDownToLine } from "lucide-react";
-import Nav from "../../components/Nav";
 import Card from "../../components/orders/Card";
 import OrderTable from "../../components/orders/OrderTable";
 import ClientDetails from "../../components/orders/ClientDetails";
@@ -14,13 +12,9 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
-  createInvoice,
-  getInvoiceByOrderId,
   getOrderById,
   sendInvoice,
 } from "../../features/ordersSlice";
-import { Role } from "../../types/users";
-import { formatDate } from "../../utils/functions";
 import { format } from "date-fns";
 import { z } from "zod";
 import { FieldError, useForm } from "react-hook-form";
@@ -29,20 +23,6 @@ import Form from "../../components/Form";
 import TextAreaField from "../../components/fields/TextAreaField";
 import { toast } from "react-toastify";
 
-const btnData = [
-  {
-    text: "Manege Invoice",
-    className:
-      "bg-gray-50 text-teal-700 flex items-center gap-2 border border-gray-300 font-medium text-sm px-4 py-2.5 rounded-md",
-    icon: <ArrowDownToLine size={16} />,
-  },
-  {
-    path: "/orders/create-order",
-    text: "Add New",
-    className:
-      "bg-orange-400 text-white font-medium text-sm px-6 py-2.5 rounded-md",
-  },
-];
 
 const invoiceSchema = z.object({
   message: z.string().min(10, "Message is too short"),
@@ -55,7 +35,7 @@ const Invoice = () => {
   const { id } = useParams();
   const dispatch: AppDispatch = useDispatch();
   const order = useSelector((state: RootState) => state.orders.order.data);
-  
+
   useEffect(() => {
     if (id) {
       dispatch(getOrderById(id));
@@ -80,7 +60,7 @@ const Invoice = () => {
 
   const onSubmit = (data: InvoiceSchema) => {
     console.log("Invoice data:", data);
-    dispatch(sendInvoice({...data, orderId: id})).then((result) => {
+    dispatch(sendInvoice({ ...data, orderId: id })).then((result) => {
       if (result.meta.requestStatus === "fulfilled") {
         toast.success(result.payload?.message || "", {
           position: "top-right",
@@ -90,7 +70,6 @@ const Invoice = () => {
     });
   };
   console.log(errors);
-
 
   const shippingCharge = order?.total && order.total > 100 ? 0 : 15; // فرض شحن 15 إذا لم تتجاوز القيمة 100.
   const estimatedTax = order?.total && order.total * 0.05;
@@ -130,10 +109,21 @@ const Invoice = () => {
     cardHolderName: "John Doe",
     cardNumber: "**** **** **** 1234",
   };
+  const userDetails = {
+    fullName: `${order?.user?.firstName} ${order?.user?.lastName}`,
+    email: order?.user?.email ?? "",
+    phone: order?.user?.phone ?? "",
+    status: order?.user?.status ?? "",
+    location: `${order?.user?.city || ""} ${order?.user?.country || ""} ${
+      order?.user?.postalCode || ""
+    }`,
+    role: order?.user?.role ?? "",
+    profilePicture: order?.user?.profilePicture?.url ?? "",
+  };
 
   return (
     <div className="space-y-5">
-      <Nav dataBtn={btnData} searchPlaceholder="Search for Product..." />
+      {/* <Nav dataBtn={btnData} searchPlaceholder="Search for Product..." /> */}
       <div className="flex gap-5">
         <div className="w-[65%]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 py-10">
@@ -166,7 +156,10 @@ const Invoice = () => {
             <div className="p-5 rounded-2xl bg-orange-400 text-white">
               <h2 className="mb-3 text-xl font-semibold">invoice To</h2>
               <div className="">
-                <h3>{order?.user?.firstName + " " + order?.user?.lastName || "No Name"}</h3>
+                <h3>
+                  {order?.user?.firstName + " " + order?.user?.lastName ||
+                    "No Name"}
+                </h3>
                 <h3>{order?.user?.address || "No Address"}</h3>
                 <h3>{order?.user?.phone || "No Phone"}</h3>
               </div>
@@ -262,20 +255,7 @@ const Invoice = () => {
         </div>
         <div className="flex-1 space-y-5">
           <Card>
-            <ClientDetails
-              user={
-                order?.user ?? {
-                  firstName: "",
-                  lastName: "",
-                  email: "",
-                  phone: "",
-                  address: "",
-                  profilePicture: { url: "", publicId: "" },
-                  role: Role.CUSTOMER,
-                  
-                }
-              }
-            />
+            <ClientDetails user={userDetails} />
           </Card>
           <Card>
             <PaymentDetails

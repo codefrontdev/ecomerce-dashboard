@@ -35,7 +35,7 @@ const Pagination: React.FC<PaginationProps> = ({
         className="px-4 py-1 bg-gray-300 rounded-md text-sm font-medium"
         text="Prev"
       />
-      {Array.from({ length: totalPages }, (item, index) => (
+      {Array.from({ length: totalPages }, (_, index) => (
         <button
           key={index}
           onClick={() => onPageChange(index + 1)}

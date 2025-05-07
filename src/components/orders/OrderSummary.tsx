@@ -1,8 +1,6 @@
 /** @format */
 
 import { FC, ReactNode } from "react";
-import Btn from "../Btn";
-import InputField from "../fields/InputField";
 
 
 
@@ -82,12 +80,12 @@ const OrderSummary: FC<OrderSummaryProps> = ({ title, btn, inputWithBtn, data })
       </div>
       {inputWithBtn ? (
         <div className="">
-          <InputField 
+          {/* <InputField 
             btn={btn} 
             placeholder='Entre Discount Code' 
             name='discountCode' 
             errors={{}} 
-          />
+          /> */}
         </div>
       ) : (
         btn

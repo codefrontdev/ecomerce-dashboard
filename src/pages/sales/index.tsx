@@ -53,7 +53,8 @@ const SalesPage = () => {
       <div className='flex-1 flex flex-col gap-5'>
         <DashboardCard
           title='Today revenue'
-          value={100}
+          value={"100"}
+          data={[]}
           percentage={20}
           icon={<SiAutodeskrevit size={10} color='white' />}
         />

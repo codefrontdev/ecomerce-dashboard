@@ -1,9 +1,7 @@
 /** @format */
 
 import { FC } from "react";
-import Btn from "../Btn";
 import Table from "../table/Table";
-import { Product } from "../../types/product";
 import { OrderItems } from "../../types/orders";
 
 const orderColumns = ["product", "price", "quantity", "Total Amount"];
@@ -22,7 +20,7 @@ const OrderTable: FC<Props> = ({ productItems, title, btn }) => {
         <h2 className="text-2xl font-semibold dark:text-white">{title}</h2>
         {btn}
       </div>
-      <Table type="product id" columns={orderColumns} data={productItems} />
+      <Table columns={orderColumns} data={productItems} />
     </div>
   );
 };

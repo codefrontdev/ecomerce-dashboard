@@ -1,26 +1,10 @@
 /** @format */
 
-import { EllipsisVertical, Funnel } from "lucide-react";
-import Nav from "../../components/Nav";
+import {  Funnel } from "lucide-react";
 import Header from "../../components/Header";
 import LayoutTable from "../../components/table/LayoutTable";
 import Thead from "../../components/table/Thead";
 import ReviewTbody from "../../components/table/reviewTbody";
-
-const btnData = [
-  {
-    text: "Bulk Actions",
-    className:
-      "bg-gray-50 border text-teal-700 flex items-center gap-2 border-gray-300 font-medium text-sm px-4 py-2.5 rounded-md",
-    icon: <EllipsisVertical size={16} />,
-  },
-  {
-    path: "/reviews/create-review",
-    text: "Add Review",
-    className:
-      "bg-orange-400 text-white font-medium text-sm px-6 py-2.5 rounded-md",
-  },
-];
 
 const dataFilters = [
   {
@@ -85,7 +69,7 @@ const ReviewsPage = () => {
           </h2> */}
 
       <div className='flex flex-col bg-white dark:bg-gray-700 gap-5 px-6 py-5 rounded-lg'>
-        <Nav dataBtn={btnData} searchPlaceholder='Search Order...' />
+        {/* <Nav dataBtn={btnData} searchPlaceholder='Search Order...' /> */}
         <Header dataBtn={[btnDataFilter]} dataFilters={dataFilters} />
         <LayoutTable>
           <Thead columns={reviewColumns} />

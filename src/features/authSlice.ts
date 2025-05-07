@@ -82,7 +82,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(signIn.fulfilled, (state, action) => {
+      .addCase(signIn.fulfilled, (state) => {
         state.status.signIn = "succeeded";
         state.isAuthenticated = true;
         localStorage.setItem("isAuthenticated", "true");

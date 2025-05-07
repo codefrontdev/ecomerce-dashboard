@@ -6,15 +6,7 @@ import CheckBoxFilter from "../components/filters/CheckBoxFilter";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-const categoryData = [
-  "Clothing",
-  "Lingerie & Nightwear",
-  "Body Fit",
-  "Sportswear",
-  "Accessories",
-];
 
-const brandData = ["Nike", "Adidas", "Puma", "Reebok", "Under Armour"];
 
 const colorData = ["Red", "Blue", "Green", "Yellow", "Orange"];
 

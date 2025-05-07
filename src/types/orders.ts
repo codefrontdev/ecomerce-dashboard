@@ -1,5 +1,5 @@
 import { TrackingRes } from "./tracking";
-import { User, UserInfo } from "./users";
+import {  UserInfo } from "./users";
 
 export type orderFailedStatus =
   | "returned"

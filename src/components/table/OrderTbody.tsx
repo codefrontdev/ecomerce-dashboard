@@ -1,7 +1,6 @@
 /** @format */
 
 import { FC, useCallback, useState } from "react";
-import { OrderData } from "../../pages/orders";
 import { EllipsisVertical, Eye, Trash2 } from "lucide-react";
 import Btn from "../Btn";
 import ActionModal from "../modals/ActionModal";
@@ -86,7 +85,7 @@ const OrderTbody: FC<OrderTbodyProps> = ({ data }) => {
 
           <td className="p-4 font-medium line-clamp-1">{item.id}</td>
 
-          <td className="p-4 font-medium">{item.user.name}</td>
+          <td className="p-4 font-medium">{item.user.firstName + " " + item.user.lastName}</td>
 
           <td className="px-4 py-4">{item.amount}</td>
 

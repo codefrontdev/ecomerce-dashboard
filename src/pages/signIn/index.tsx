@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { myAccount, signIn } from "../../features/authSlice";
+import {  signIn } from "../../features/authSlice";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 

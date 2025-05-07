@@ -60,10 +60,10 @@ const BrandTbody: FC<Props> = React.memo(({ data }) => {
             {item.logo ? "Yes" : "No"}
           </td>
           <td className='p-4 font-medium'>
-            {new Date(item.created_at).toLocaleDateString()}
+            {new Date(item.createdAt).toLocaleDateString()}
           </td>
           <td className='p-4 font-medium'>
-            {new Date(item.updated_at).toLocaleDateString()}
+            {new Date(item.updatedAt).toLocaleDateString()}
           </td>
           <td className='p-4'>
             <div

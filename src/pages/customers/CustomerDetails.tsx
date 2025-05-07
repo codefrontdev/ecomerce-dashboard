@@ -4,7 +4,7 @@ import { FC, useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { BiSolidCommentDetail } from "react-icons/bi";
-import { MdOutlinePhone, MdEmail, MdOutlineLocationOn } from "react-icons/md";
+import { MdOutlinePhone, MdEmail } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Btn from "../../components/Btn";

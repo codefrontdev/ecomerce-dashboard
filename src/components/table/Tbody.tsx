@@ -1,13 +1,12 @@
 import { FC } from "react";
 
 interface TbodyProps<T> {
-  type: string;
   columns: string[];
   data: T[];
   checkbox?: boolean;
 }
 
-const Tbody: FC<TbodyProps<any>> = ({ columns, data, type, checkbox }) => {
+const Tbody: FC<TbodyProps<any>> = ({ columns, data, checkbox }) => {
   const renderColumnValue = (column: string, row: any) => {
     switch (column) {
       case "product":

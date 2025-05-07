@@ -70,7 +70,6 @@ export const CreateOrderPage = () => {
     control,
     handleSubmit,
     watch,
-    setValue,
     formState: { errors },
   } = useForm<OrderFormData>({
     resolver: zodResolver(orderSchema),

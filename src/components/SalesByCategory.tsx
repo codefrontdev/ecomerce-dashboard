@@ -67,7 +67,7 @@ const SalesByCategory = () => {
                   outerRadius={100}
                   label={false}
                 >
-                  {chartData.map((entry, index) => (
+                  {chartData.map((_, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}

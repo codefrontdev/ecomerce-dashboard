@@ -1,6 +1,5 @@
 /** @format */
 import React, { FC, useCallback, useState } from "react";
-import Btn from "../Btn";
 import { EllipsisVertical, Eye, Trash2 } from "lucide-react";
 import { FiEdit } from "react-icons/fi";
 const ActionModal = React.lazy(() => import("../modals/ActionModal"));

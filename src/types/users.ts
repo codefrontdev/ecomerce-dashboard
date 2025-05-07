@@ -39,6 +39,7 @@ export interface UserInfo {
     publicId: string;
     url: string;
   };
+  status: Status;
 }
 export interface User {
   id: string;

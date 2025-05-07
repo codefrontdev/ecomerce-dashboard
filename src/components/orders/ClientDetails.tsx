@@ -3,7 +3,6 @@
 import { FC } from "react";
 import Btn from "../Btn";
 import { FiEdit } from "react-icons/fi";
-import { UserInfo } from "../../types/users";
 
 
 

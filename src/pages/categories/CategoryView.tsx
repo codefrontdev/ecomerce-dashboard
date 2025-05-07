@@ -1,5 +1,5 @@
 /** @format */
-import { lazy, useState } from "react";
+import { lazy } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { categoryListData } from "../../data/categories";

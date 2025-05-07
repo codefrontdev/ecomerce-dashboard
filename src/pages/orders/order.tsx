@@ -92,7 +92,7 @@ const data = [
                 phone: order?.user?.phone ?? null,
                 address: order?.user?.address ?? null,
                 email: order?.user?.email ?? "",
-                name: order?.user?.name ?? "",
+                name: order?.user?.firstName + " " + order?.user?.lastName,
               }}
             />
           </Card>

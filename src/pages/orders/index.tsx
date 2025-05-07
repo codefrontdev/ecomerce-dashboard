@@ -13,10 +13,8 @@ import { AiOutlineWarning } from "react-icons/ai";
 import LayoutTable from "../../components/table/LayoutTable";
 import Thead from "../../components/table/Thead";
 import OrderTbody from "../../components/table/OrderTbody";
-import { AppDispatch, RootState } from "../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getOrders } from "../../features/ordersSlice";
+import {  RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 import { useOrderQuery } from "../../hooks/useOrdersQuery";
 import LazyWrapper from "../../components/common/LazyWrapper";
 import Pagination from "../../components/Pagination";
@@ -32,88 +30,6 @@ export interface OrderData {
   status: StatusType;
 }
 
-const orderData: OrderData[] = [
-  {
-    id: 1,
-    customer: "John Doe",
-    amount: "$250.00",
-    paymentMethod: "Credit Card",
-    date: "Apr 01, 2023",
-    status: "New" as StatusType,
-  },
-  {
-    id: 2,
-    customer: "Alice Smith",
-    amount: "$125.50",
-    paymentMethod: "PayPal",
-    date: "Apr 02, 2023",
-    status: "In Progress" as StatusType,
-  },
-  {
-    id: 3,
-    customer: "Michael Brown",
-    amount: "$89.99",
-    paymentMethod: "Bank Transfer",
-    date: "Apr 03, 2023",
-    status: "Completed" as StatusType,
-  },
-  {
-    id: 4,
-    customer: "Emma Johnson",
-    amount: "$300.75",
-    paymentMethod: "Cash",
-    date: "Apr 04, 2023",
-    status: "Canceled" as StatusType,
-  },
-  {
-    id: 5,
-    customer: "William Davis",
-    amount: "$410.20",
-    paymentMethod: "Credit Card",
-    date: "Apr 05, 2023",
-    status: "New" as StatusType,
-  },
-  {
-    id: 6,
-    customer: "Sophia Wilson",
-    amount: "$99.95",
-    paymentMethod: "PayPal",
-    date: "Apr 06, 2023",
-    status: "Completed" as StatusType,
-  },
-  {
-    id: 7,
-    customer: "James Martinez",
-    amount: "$215.30",
-    paymentMethod: "Bank Transfer",
-    date: "Apr 07, 2023",
-    status: "In Progress" as StatusType,
-  },
-  {
-    id: 8,
-    customer: "Olivia Garcia",
-    amount: "$178.00",
-    paymentMethod: "Cash",
-    date: "Apr 08, 2023",
-    status: "Canceled" as StatusType,
-  },
-  {
-    id: 9,
-    customer: "Benjamin Miller",
-    amount: "$50.00",
-    paymentMethod: "Credit Card",
-    date: "Apr 09, 2023",
-    status: "New" as StatusType,
-  },
-  {
-    id: 10,
-    customer: "Charlotte Wilson",
-    amount: "$320.40",
-    paymentMethod: "PayPal",
-    date: "Apr 10, 2023",
-    status: "Completed" as StatusType,
-  },
-];
 
 const dataFilters = (data: Record<string, number>) => [
   {
@@ -215,7 +131,7 @@ const orderColumns = [
 ];
 
 const OrdersPage = () => {
-  const { orders, loading, error } = useSelector(
+  const { orders, loading, } = useSelector(
     (state: RootState) => state.orders
   );
   const { query, setQuery, debouncedFilter } = useOrderQuery();
