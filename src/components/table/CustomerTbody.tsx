@@ -38,7 +38,6 @@ interface Props {
 const CustomerTbody: FC<Props> = ({ data }) => {
   const [openModalId, setOpenModalId] = useState<string | null>(null);
 
-  console.log(data);
 
    const dispatch: AppDispatch = useDispatch();
   

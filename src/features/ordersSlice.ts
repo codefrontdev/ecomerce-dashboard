@@ -141,7 +141,6 @@ export const ordersSlice = createSlice({
         state.loading = false;
         state.status = "succeeded";
         state.orders = action.payload;
-        console.log(action.payload);
       })
       .addCase(getOrders.rejected, (state, action) => {
         state.loading = false;
@@ -208,7 +207,6 @@ export const ordersSlice = createSlice({
       })
       .addCase(deleteOrder.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.meta.arg);
         const id = action.meta.arg;
 
         const index = state.orders.data.findIndex((o) => o.id === id);

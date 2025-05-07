@@ -118,7 +118,6 @@ const SettingsPage = () => {
 
     const updateUserPayload = { credentials };
     dispatch(updateProfile(updateUserPayload)).then((result) => {
-      console.log(result);
       if (result.meta.requestStatus === "fulfilled") {
         toast.success(result.payload?.message || "", {
           position: "top-right",
@@ -128,7 +127,6 @@ const SettingsPage = () => {
     });
   };
 
-  console.log(errors);
   const generalFields: Array<{
     name: Path<Setting>;
     label: string;
@@ -226,11 +224,9 @@ const SettingsPage = () => {
     profilePicture: user?.profilePicture?.url ?? "",
   };
 
-  console.log("user", userDetails, user);
 
 
   const handleLogoutDevice = (deviceId: string) => {
-    console.log("logout device", deviceId);
     dispatch(logOutFromDevice(deviceId))
       .unwrap()
       .then(() => {

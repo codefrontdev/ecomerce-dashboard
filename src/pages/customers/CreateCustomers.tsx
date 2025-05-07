@@ -62,13 +62,11 @@ const CreateCustomers = () => {
   });
 
   const onSubmit: SubmitHandler<Customer> = (data) => {
-    console.log("Customer created:", data);
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       formData.append(key, data[key as keyof Customer]);
     });
     dispatch(createUser(formData)).unwrap().then((result) => {
-      console.log(result);
       if(result.meta.requestStatus === "rejected") {
         toast.error(result.error.message);
         return;
@@ -83,7 +81,6 @@ const CreateCustomers = () => {
         return;
       }
     }).catch((error) => {
-      console.log(error);
       toast.error(error.message);
     });
   };

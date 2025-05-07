@@ -37,7 +37,6 @@ export const getAllCategories = createAsyncThunk(
   "categories/getAll",
   async ({ query }: { query?: string }, { rejectWithValue }) => {
     try {
-      console.log(query);
       return await categoriesService.getCategories(query);
     } catch (error: any) {
       return rejectWithValue(error.response?.data || error.message);

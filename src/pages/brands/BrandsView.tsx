@@ -21,7 +21,6 @@ const BrandsView = () => {
     setCurrentPage(page);
     debouncedFilter({ page });
   };
-  console.log(brands);
 
   return (
     <div className="grid grid-cols-12 gap-5 w-full h-full overflow-y-auto">

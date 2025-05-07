@@ -25,7 +25,6 @@ const UserDetails: FC = () => {
     if (!user) return <div>...جاري التحميل</div>;
 
   const handleLogoutDevice = (deviceId: string) => {
-    console.log("logout device", deviceId);
     dispatch(logOutFromDevice(deviceId)).unwrap().then(() => {
       toast.success("تم تسجيل الخروج من الجهاز بنجاح");
     }).catch((error) => {

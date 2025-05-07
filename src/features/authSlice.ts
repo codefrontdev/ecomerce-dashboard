@@ -126,7 +126,6 @@ const authSlice = createSlice({
         state.status.myAccount = "succeeded";
         // state.isAuthenticated = true;
         state.user = action.payload.data;
-        console.log(action.payload);
         state.loading = false;
         state.error = null;
       })

@@ -130,8 +130,7 @@ type Product = z.infer<typeof productSchema>;
 const CreateProduct = () => {
   const brands = useSelector((state: RootState) => state.brands.brands);
   const categories = useSelector((state: RootState) => state.categories.categories);
-  console.log("categories", categories);
-  console.log("brands", brands);
+  
   const dispatch: AppDispatch = useDispatch();
   const {
     register,
@@ -154,7 +153,6 @@ const CreateProduct = () => {
     },
   });
   const onSubmit: SubmitHandler<Product> = (data) => {
-    console.log("Product created:", data);
 
     const formData = new FormData();
 
@@ -194,11 +192,9 @@ const CreateProduct = () => {
       formData.append("attributesValues", val)
     );
 
-    console.log(formData);
     dispatch(createProduct(formData))
       .unwrap()
       .then((response) => {
-        console.log("Product created successfully:", response);
         toast.success(response?.message || "Product created successfully", {
           position: "top-right",
           autoClose: 3000,

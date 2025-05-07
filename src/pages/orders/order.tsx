@@ -17,7 +17,6 @@ const OrderDetails = () => {
   const { id } = useParams();
   const dispatch: AppDispatch = useDispatch();
   const order = useSelector((state: RootState) => state.orders.order.data);
-  console.log(order);
   useEffect(() => {
     if (id) dispatch(getOrderById(id));
   }, []);

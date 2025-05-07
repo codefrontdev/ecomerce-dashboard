@@ -126,7 +126,6 @@ const brandSlice = createSlice({
       .addCase(getBrandById.fulfilled, (state, action) => {
         state.loading = false;
         state.status = "succeeded";
-        console.log(action.payload);
         state.brand = action.payload;
       })
       .addCase(getBrandById.rejected, (state, action) => {
@@ -164,7 +163,6 @@ const brandSlice = createSlice({
         state.status = "succeeded";
         const id = action.meta.arg
         const index = state.brands.brands.findIndex((b) => b.id === id);
-        console.log(index);
         if (index !== -1) {
           state.brands.brands.splice(index, 1);
         }

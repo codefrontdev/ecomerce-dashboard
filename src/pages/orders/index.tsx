@@ -136,7 +136,6 @@ const OrdersPage = () => {
   );
   const { query, setQuery, debouncedFilter } = useOrderQuery();
 
-  console.log(orders);
 
   const OrderStatuses = mapOrderStatuses(orders.orderStatusCounts.succeeded);
   const OrderFailed = mapOrderFailed(orders.orderStatusCounts.failed);

@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 
 const AppRoutes = () => {
-  console.log("AppRoutes");
   const dispatch: AppDispatch = useDispatch();
   
     const isAuthenticated = useSelector(
@@ -20,7 +19,6 @@ const AppRoutes = () => {
   );
   useEffect(() => {
     dispatch(myAccount());
-    console.log("isAuthenticated", isAuthenticated);
   }, [dispatch]);
   return (
     <Routes>

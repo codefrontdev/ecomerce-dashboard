@@ -59,7 +59,6 @@ const Invoice = () => {
   });
 
   const onSubmit = (data: InvoiceSchema) => {
-    console.log("Invoice data:", data);
     dispatch(sendInvoice({ ...data, orderId: id })).then((result) => {
       if (result.meta.requestStatus === "fulfilled") {
         toast.success(result.payload?.message || "", {
@@ -69,7 +68,7 @@ const Invoice = () => {
       }
     });
   };
-  console.log(errors);
+  
 
   const shippingCharge = order?.total && order.total > 100 ? 0 : 15; // فرض شحن 15 إذا لم تتجاوز القيمة 100.
   const estimatedTax = order?.total && order.total * 0.05;

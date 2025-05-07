@@ -20,7 +20,6 @@ const CategoriesView = () => {
     setQuery({ ...query, page });
     debouncedFilter({ page });
   };
-  console.log(categories);
 
   return (
     <div className='grid grid-cols-12 gap-5 w-full h-full overflow-y-auto'>

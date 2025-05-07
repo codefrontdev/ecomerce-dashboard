@@ -17,7 +17,6 @@ const Dashboard = () => {
     (state: RootState) => state.analytics.overview
   );
 
-  console.log("overview", overview);
 
   useEffect(() => {
     dispatch(getOverview());

@@ -67,7 +67,6 @@ export const useCategoryQuery = () => {
 
   const debouncedFilter = useCallback(
     debounce((filter: any) => {
-        console.log(filter)
       setQuery((prev) => ({ ...prev, ...filter }));
     }, 300),
     []

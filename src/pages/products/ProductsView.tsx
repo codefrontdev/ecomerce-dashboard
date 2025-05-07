@@ -26,7 +26,6 @@ const ProductsView = () => {
   const products = useSelector((state: RootState) => state.products.products);
   const { query, debouncedFilter } = useProductQuery();
 
-  console.log(products);
   const handleCheckboxChange =
   (
     title: string,
@@ -48,7 +47,6 @@ const ProductsView = () => {
     debouncedFilter(values);
   };
 
-  console.log(viewType);
 
   useEffect(() => {
     dispatch(getAllCategories({ query: "" }));

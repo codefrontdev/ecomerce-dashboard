@@ -100,7 +100,6 @@ export const usersSlice = createSlice({
       .addCase(createUser.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.users = action.payload;
-        console.log(action.payload);
         state.users.users.push(action.payload);
       })
       .addCase(createUser.rejected, (state, action) => {
