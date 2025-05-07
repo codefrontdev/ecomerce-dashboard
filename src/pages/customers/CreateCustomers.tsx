@@ -19,11 +19,12 @@ const MAX_FILE_SIZE = 8 * 1024 * 1024;
 
 // Schema للتحقق من البيانات باستخدام Zod
 const customerSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
+  firstName: z.string().min(1, { message: "First name is required" }),
+  lastName: z.string().min(1, { message: "Last name is required" }),
   email: z.string().min(1, { message: "Email is required" }).email(),
   password: z.string().min(1, { message: "Password is required" }),
-  phone: z.string().min(1, { message: "Phone number is required" }),
-  address: z.string().min(1, { message: "Address is required" }),
+  phone: z.string().optional(),
+  address: z.string().optional(),
   role: z.enum([Role.ADMIN, Role.CUSTOMER]),
   status: z.enum([Status.ACTIVE, Status.INACTIVE]),
   profilePictureUrl: z
@@ -92,11 +93,19 @@ const CreateCustomers = () => {
           <Section title="Customer Information">
             {/* الحقول الأساسية */}
             <InputField
-              label="Name"
-              placeholder="Enter Full Name"
-              name="name"
+              label="first Name"
+              placeholder="Enter First Name"
+              name="firstName"
               register={register}
-              errors={errors.name as FieldError}
+              errors={errors.firstName as FieldError}
+              type="text"
+            />
+            <InputField
+              label="Last Name"
+              placeholder="Enter Last Name"
+              name="lastName"
+              register={register}
+              errors={errors.lastName as FieldError}
               type="text"
             />
             <InputField
