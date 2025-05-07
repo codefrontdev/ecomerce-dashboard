@@ -27,7 +27,7 @@ const ActionModal: React.FC<ActionModalProps> = ({
 
   return (
     <div
-      className='absolute flex-col -translate-x-28 translate-y-0  h-fit inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-white dark:bg-gray-500 rounded-lg shadow-lg p-4 min-w-[100px] max-w-fit'
+      className='absolute flex-col -translate-x-28 translate-y-10  h-fit inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-white dark:bg-gray-500 rounded-lg shadow-lg p-4 min-w-[100px] max-w-fit'
       onClick={onClose}>
       <div className='absolute top-5 right-0 transform translate-x-full -translate-y-1/2 border-8 border-transparent border-l-white dark:border-l-gray-500'></div>
 

@@ -3,6 +3,8 @@
 import React from "react";
 import PriceFilter from "../components/filters/PriceFilter";
 import CheckBoxFilter from "../components/filters/CheckBoxFilter";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const categoryData = [
   "Clothing",
@@ -28,6 +30,10 @@ interface FilterProps {
 
 const LayoutFilters: React.FC<FilterProps> = ({ handleCheckboxChange,handleRangeChange }) => {
   
+  const brands = useSelector((state: RootState) => state.brands.brands);
+  const categories = useSelector(
+    (state: RootState) => state.categories.categories
+  )
 
   return (
     <div className='flex-1 flex w-full flex-col bg-white dark:bg-gray-700 gap-5 px-6 py-5 rounded-lg'>
@@ -36,7 +42,7 @@ const LayoutFilters: React.FC<FilterProps> = ({ handleCheckboxChange,handleRange
 
       <CheckBoxFilter
         title={"Category"}
-        data={categoryData}
+        data={categories.categories.map((category) => category.name)}
         onChange={handleCheckboxChange}
       />
 
@@ -50,7 +56,7 @@ const LayoutFilters: React.FC<FilterProps> = ({ handleCheckboxChange,handleRange
 
       <CheckBoxFilter
         title={"Brand"}
-        data={brandData}
+        data={brands.brands.map((brand) => brand.name)}
         onChange={handleCheckboxChange}
       />
 

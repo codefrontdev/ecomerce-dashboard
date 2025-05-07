@@ -25,7 +25,7 @@ const InfoClinent = () => {
     <div className='flex items-center gap-3'>
       <img
         src={
-          user?.profilePicture ||
+          user?.profilePicture.url ||
           "https://avatars.githubusercontent.com/u/47231161?v=4"
           
         }
@@ -37,7 +37,7 @@ const InfoClinent = () => {
       />
       <div className='flex flex-col'>
         <span className='text-sm font-semibold dark:text-white'>
-          {user?.name || "User Name"}
+          {user?.firstName + " " + user?.lastName || "User Name"}
         </span>
         <span className='text-xs text-gray-400'>{user?.role}</span>
       </div>

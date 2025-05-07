@@ -12,10 +12,13 @@ import TextAreaField from "../../components/fields/TextAreaField";
 import { FieldError, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Form from "../../components/Form";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import { createProduct } from "../../features/productSlice";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { getAllCategories } from "../../features/categoriesSlice";
+import { getAllBrands } from "../../features/brandsSlice";
 // Define the maximum file size (8MB in bytes)
 const MAX_FILE_SIZE = 8 * 1024 * 1024;
 
@@ -26,9 +29,11 @@ const productSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   category: z.string().min(1, "Category is required"),
+  
   tags: z.array(z.string()).min(1, "Tags is required"),
   shortDescription: z.string().min(1, "Short Description is required"),
   status: z.string().min(1, "Status is required"),
+
   visibility: z.string().min(1, "Visibility is required"),
 
   publishDate: z.date().min(new Date(), "Publish Date must be in the future"),
@@ -123,6 +128,10 @@ const productSchema = z.object({
 
 type Product = z.infer<typeof productSchema>;
 const CreateProduct = () => {
+  const brands = useSelector((state: RootState) => state.brands.brands);
+  const categories = useSelector((state: RootState) => state.categories.categories);
+  console.log("categories", categories);
+  console.log("brands", brands);
   const dispatch: AppDispatch = useDispatch();
   const {
     register,
@@ -160,7 +169,8 @@ const CreateProduct = () => {
     // النصوص
     formData.append("name", data.name);
     formData.append("description", data.description);
-    formData.append("category", data.category);
+    formData.append("categoryId", data.category);
+    formData.append("brandId", data.brand);
     formData.append("shortDescription", data.shortDescription);
     formData.append("status", data.status);
     formData.append("visibility", data.visibility);
@@ -175,7 +185,7 @@ const CreateProduct = () => {
     formData.append("orders", data.orders.toString());
 
     // المصفوفات
-    
+
     data.tags.forEach((tag) => formData.append("tags", tag));
     data.colors?.forEach((color) => formData.append("colors", color));
     data.sizes?.forEach((size) => formData.append("sizes", size));
@@ -213,49 +223,51 @@ const CreateProduct = () => {
       });
   };
 
-  
+  useEffect(() => {
+    dispatch(getAllCategories({ query: "" }));
+    dispatch(getAllBrands({ query: "" }));
+  }, [dispatch]);
   return (
     <Form<Product> onSubmit={onSubmit} handleSubmit={handleSubmit}>
-      <div className='grid grid-cols-1 lg:grid-cols-2 gap-5'>
-        <div className='flex-1 flex flex-col bg-white dark:bg-gray-700 gap-5 rounded-lg p-5'>
-          <Section title='Description'>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="flex-1 flex flex-col bg-white dark:bg-gray-700 gap-5 rounded-lg p-5">
+          <Section title="Description">
             <InputField
-              label='Product Name'
-              placeholder='Enter Product Name'
+              label="Product Name"
+              placeholder="Enter Product Name"
               register={register}
-              name='name'
+              name="name"
               errors={errors.name as FieldError}
             />
             <TextAreaField
-              label='Product Description'
-              placeholder='Enter Product Description'
+              label="Product Description"
+              placeholder="Enter Product Description"
               rows={3}
               register={register}
-              name='description'
+              name="description"
               errors={errors.description as FieldError}
             />
           </Section>
 
-          <Section title='Product Categories'>
+          <Section title="Product Categories">
             <SelectField
               register={register}
               errors={errors.category as FieldError}
-              name='category'
-              label='Product Category'
-              id='category'
-              defaultValue='electronics'
-              options={[
-                { value: "electronics", label: "Electronics" },
-                { value: "fashion", label: "Fashion" },
-                { value: "home", label: "Home" },
-              ]}
+              name="category"
+              label="Product Category"
+              id="category"
+              defaultValue="electronics"
+              options={categories.categories.map((category) => ({
+                value: category.id,
+                label: category.name,
+              }))}
             />
             <SelectField
               register={register}
               errors={errors.subCategory as FieldError}
-              name='subCategory'
-              label='SubCategory'
-              id='subCategory'
+              name="subCategory"
+              label="SubCategory"
+              id="subCategory"
               options={[
                 { value: "electronics", label: "Electronics" },
                 { value: "fashion", label: "Fashion" },
@@ -266,42 +278,41 @@ const CreateProduct = () => {
             <SelectField
               register={register}
               errors={errors.brand as FieldError}
-              name='brand'
-              label='Product Brand'
-              id='brand'
-              options={[
-                { value: "electronics", label: "Electronics" },
-                { value: "fashion", label: "Fashion" },
-                { value: "home", label: "Home" },
-              ]}
+              name="brand"
+              label="Product Brand"
+              id="brand"
+              options={brands.brands.map((brand) => ({
+                value: brand.id,
+                label: brand.name,
+              }))}
             />
 
             <TagsInput
               error={errors.tags?.message}
               setValue={setValue}
-              name='tags'
-              label='Product Tags'
-              id='product-tags'
-              placeholder='Add a tag and press Enter'
+              name="tags"
+              label="Product Tags"
+              id="product-tags"
+              placeholder="Add a tag and press Enter"
             />
             <TextAreaField
               errors={errors.shortDescription as FieldError}
               register={register}
-              name='shortDescription'
-              label='Product Short Description'
-              placeholder='Add short description for Product'
+              name="shortDescription"
+              label="Product Short Description"
+              placeholder="Add short description for Product"
               rows={3}
             />
           </Section>
-          <Section title='Publish'>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
+          <Section title="Publish">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <SelectField
                 errors={errors.status as FieldError}
                 register={register}
-                name='status'
-                label='status'
-                id='status'
-                defaultValue='available'
+                name="status"
+                label="status"
+                id="status"
+                defaultValue="available"
                 options={[
                   { value: "available", label: "Available" },
                   { value: "disabled", label: "Disabled" },
@@ -310,10 +321,10 @@ const CreateProduct = () => {
               <SelectField
                 errors={errors.visibility as FieldError}
                 register={register}
-                name='visibility'
-                label='visibility'
-                id='visibility'
-                defaultValue='Public'
+                name="visibility"
+                label="visibility"
+                id="visibility"
+                defaultValue="Public"
                 options={[
                   { value: "public", label: "Public" },
                   { value: "private", label: "Private" },
@@ -324,135 +335,135 @@ const CreateProduct = () => {
             <DateInput
               errors={errors.publishDate as FieldError}
               setValue={setValue}
-              name='publishDate'
-              label='Publish Date'
-              id='publish-date'
-              placeholder='Enter Date & Time'
+              name="publishDate"
+              label="Publish Date"
+              id="publish-date"
+              placeholder="Enter Date & Time"
             />
           </Section>
         </div>
-        <div className='flex-1 flex flex-col bg-white dark:bg-gray-700 gap-5 rounded-lg p-5'>
-          <Section title='General Info'>
+        <div className="flex-1 flex flex-col bg-white dark:bg-gray-700 gap-5 rounded-lg p-5">
+          <Section title="General Info">
             <InputField
               errors={errors.manufacturerName as FieldError}
-              label='manufacturer Name'
-              placeholder='Enter Manufacturer Name'
+              label="manufacturer Name"
+              placeholder="Enter Manufacturer Name"
               register={register}
-              name='manufacturerName'
+              name="manufacturerName"
             />
             <InputField
               errors={errors.manufacturerBrand as FieldError}
-              label='manufacturer brand'
-              placeholder='Enter manufacturer brand'
+              label="manufacturer brand"
+              placeholder="Enter manufacturer brand"
               register={register}
-              name='manufacturerBrand'
+              name="manufacturerBrand"
             />
-            <div className='grid grid-cols-1 md:grid-cols-2 grid-rows-4 md:grid-rows-2 gap-5'>
+            <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-4 md:grid-rows-2 gap-5">
               <InputField
-                type='number'
+                type="number"
                 errors={errors.stock as FieldError}
-                label='Stocks'
-                placeholder='Stocks'
+                label="Stocks"
+                placeholder="Stocks"
                 register={register}
-                name='stock'
+                name="stock"
               />
               <InputField
                 errors={errors.price as FieldError}
-                label='Price, $'
-                placeholder='Price'
+                label="Price, $"
+                placeholder="Price"
                 register={register}
-                type='number'
-                name='price'
+                type="number"
+                name="price"
               />
               <InputField
                 errors={errors.discount as FieldError}
-                label='discount, %'
-                type='number'
-                placeholder='Discount'
+                label="discount, %"
+                type="number"
+                placeholder="Discount"
                 register={register}
-                name='discount'
+                name="discount"
               />
               <InputField
                 errors={errors.orders as FieldError}
-                label='orders'
-                type='number'
-                placeholder='Orders'
+                label="orders"
+                type="number"
+                placeholder="Orders"
                 register={register}
-                name='orders'
+                name="orders"
               />
 
               <TagsInput
                 error={errors.colors?.message}
                 setValue={setValue}
-                name='colors'
-                label='Product Colors'
-                id='product-tags'
-                placeholder='Enter Colors (comma separated)'
+                name="colors"
+                label="Product Colors"
+                id="product-tags"
+                placeholder="Enter Colors (comma separated)"
               />
               <TagsInput
                 error={errors.sizes?.message}
                 setValue={setValue}
-                name='sizes'
-                label='Sizes'
-                id='product-tags'
-                placeholder='Enter Sizes (comma separated)'
+                name="sizes"
+                label="Sizes"
+                id="product-tags"
+                placeholder="Enter Sizes (comma separated)"
               />
               <TagsInput
                 error={errors.attributes?.message}
                 setValue={setValue}
-                name='attributes'
-                label='Product Attributes'
-                id='product-tags'
-                placeholder='Enter Attributes (comma separated)'
+                name="attributes"
+                label="Product Attributes"
+                id="product-tags"
+                placeholder="Enter Attributes (comma separated)"
               />
 
               <TagsInput
                 error={errors.attributesValues?.message}
                 setValue={setValue}
-                name='attributesValues'
-                label='Product Attribute Values'
-                id='product-tags'
-                placeholder='Enter Attribute Values (comma separated)'
+                name="attributesValues"
+                label="Product Attribute Values"
+                id="product-tags"
+                placeholder="Enter Attribute Values (comma separated)"
               />
             </div>
           </Section>
 
-          <Section title='Product Gallery'>
-            <div className='h-72'>
+          <Section title="Product Gallery">
+            <div className="h-72">
               <FileUpload
                 setValue={setValue}
-                id='product-image'
-                placeholder='Drop files here or click to upload'
-                accept='image/*'
+                id="product-image"
+                placeholder="Drop files here or click to upload"
+                accept="image/*"
                 multiple={false}
-                name='image'
+                name="image"
                 errors={errors.image as FieldError}
                 register={register}
               />
             </div>
-            <div className=''>
+            <div className="">
               <FileUpload
                 setValue={setValue}
-                id='product-images'
-                accept='image/*'
-                placeholder='Drop files here or click to upload'
+                id="product-images"
+                accept="image/*"
+                placeholder="Drop files here or click to upload"
                 multiple={true}
-                name='images'
+                name="images"
                 errors={errors.images as FieldError}
                 register={register}
               />
             </div>
           </Section>
 
-          <div className='flex items-center justify-end gap-3'>
+          <div className="flex items-center justify-end gap-3">
             <Btn
-              className='bg-transparent border border-gray-300 text-white font-medium text-sm px-6 py-2.5 rounded-md'
-              text='Cancel'
+              className="bg-transparent border border-gray-300 dark:text-white font-medium text-sm px-6 py-2.5 rounded-md"
+              text="Cancel"
             />
             <Btn
-              type='submit'
-              className='bg-orange-400 dark:text-white font-medium text-sm px-6 py-2.5 rounded-md'
-              text='submit'
+              type="submit"
+              className="bg-orange-400 dark:text-white font-medium text-sm px-6 py-2.5 rounded-md"
+              text="submit"
             />
           </div>
         </div>

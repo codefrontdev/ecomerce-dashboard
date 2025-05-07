@@ -24,16 +24,16 @@ const CardItem: FC<CardItemProps> = ({ item }) => {
           text={item.status}
         />
       </div>
-      <div className='overflow-hidden w-full min-h-[280px]'>
-        <img loading='lazy' src={item.image} alt={item.name.slice(0, 5)} />
+      <div className='overflow-hidden w-full '>
+        <img loading='lazy' src={item.image.url} alt={item.name.slice(0, 5)} />
       </div>
       <div className='p-4 flex flex-col gap-2'>
         <p className='text-gray-400 text-[10px] font-medium uppercase'>
-          {item.category}
+          {item.category?.name}
         </p>
         <h2 className='font-medium dark:text-white '>{item.name}</h2>
         <div className='flex justify-between'>
-          <span className='text-gray-400 font-medium'>{item.created_at}</span>
+          <span className='text-gray-400 font-medium'>{item.createdAt}</span>
           <span className='dark:text-white font-medium'>{item.price}</span>
         </div>
       </div>

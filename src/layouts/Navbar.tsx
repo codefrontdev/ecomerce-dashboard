@@ -3,7 +3,6 @@
 import { Bell, Moon, Search, ShoppingCart, Sun, X } from "lucide-react";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
-import { useTheme } from "../hooks/useTheme";
 import { useEffect, useState } from "react";
 import NotificationList from "../components/NotifacationList";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +16,7 @@ import {
   NotificationType,
 } from "../features/notificationsSlice";
 import InfoClinent from "../components/InfoClinent";
+import { useTheme } from "../hooks/useTheme";
 const mockNotifications = [
   {
     id: 1,

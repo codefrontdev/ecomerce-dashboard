@@ -10,6 +10,7 @@ export default defineConfig({
   },
   server: {
     open: true, // فتح المتصفح تلقائيًا عند التشغيل
+    host: true,
   },
   preview: {
     port: 4173, // تحديد المنفذ للمعاينة

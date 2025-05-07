@@ -32,36 +32,44 @@ const dataMenu = [
   },
   {
     id: 3,
-    name: "Orders",
-    path: "/orders",
-    icon: <Logs size={20} />,
-    items: [
-      { id: 1, name: "Order Detail", path: "/orders" },
-      { id: 2, name: "Invoice", path: "/orders/invoice" },
-    ],
+    name: "Categories",
+    path: "/categories",
+    icon: <TbReport size={20} />,
   },
+
   {
     id: 4,
-    name: "Customers",
-    path: "/customers",
-    icon: <LiaUsersSolid size={20} />,
-    items: [{ id: 1, name: "Customer Detail", path: "/customers/1" }],
+    name: "Brands",
+    path: "/brands",
+    icon: <CiSettings size={20} />,
   },
   {
     id: 5,
+    name: "Orders",
+    path: "/orders",
+    icon: <Logs size={20} />,
+  },
+  {
+    id: 6,
+    name: "Customers",
+    path: "/customers",
+    icon: <LiaUsersSolid size={20} />,
+  },
+  {
+    id: 7,
     name: "Chats",
     path: "/chats",
     icon: <MessageCircle  size={20} />,
     
   },
-  { id: 6, name: "Sales", path: "/sales", icon: <BadgePercent size={20} /> },
+  { id: 8, name: "Sales", path: "/sales", icon: <BadgePercent size={20} /> },
   {
-    id: 7,
+    id: 9,
     name: "Reviews",
     path: "/reviews",
     icon: <MdOutlineReviews size={20} />,
   },
-  { id: 8, name: "Reports", path: "/reports", icon: <TbReport size={20} /> },
+  { id: 10, name: "Reports", path: "/reports", icon: <TbReport size={20} /> },
 ];
 
 const otherMenu = [

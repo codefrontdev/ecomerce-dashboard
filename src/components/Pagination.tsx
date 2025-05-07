@@ -28,19 +28,23 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className='flex justify-between items-center mt-4'>
+    <div className="flex justify-between items-center mt-4">
       <Btn
         onClick={handlePrevious}
         disabled={currentPage === 1}
-        className='px-4 py-1 bg-gray-300 rounded-md text-sm font-medium' 
-        text="Prev"/>
-      {Array.from({ length: totalPages }, (_, index) => (
+        className="px-4 py-1 bg-gray-300 rounded-md text-sm font-medium"
+        text="Prev"
+      />
+      {Array.from({ length: totalPages }, (item, index) => (
         <button
           key={index}
           onClick={() => onPageChange(index + 1)}
           className={`px-4 py-1 mx-1 rounded-md text-sm font-medium ${
-            currentPage === index + 1 ? 'bg-orange-400 text-white' : 'bg-gray-300'
-          }`}>
+            currentPage === index + 1
+              ? "bg-orange-400 text-white"
+              : "bg-gray-300"
+          }`}
+        >
           {index + 1}
         </button>
       ))}
@@ -48,7 +52,8 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={handleNext}
         text="Next"
         disabled={currentPage === totalPages}
-        className='px-4 py-1 bg-gray-300 rounded-md text-sm font-medium' />
+        className="px-4 py-1 bg-gray-300 rounded-md text-sm font-medium"
+      />
     </div>
   );
 };

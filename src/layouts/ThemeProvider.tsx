@@ -1,11 +1,11 @@
 /** @format */
 
 import React from "react";
-import { useTheme } from "../hooks/useTheme";
 
 import { ToastContainer } from "react-toastify";
+import { useTheme } from "../hooks/useTheme";
 
-const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
+const ThemeProvider: React.FC<{ children: React.ReactNode }> = React.memo(({
   children,
 }) => {
   const { theme } = useTheme();
@@ -17,6 +17,6 @@ const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
       {children}
     </main>
   );
-};
+});
 
 export default ThemeProvider;

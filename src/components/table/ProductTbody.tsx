@@ -86,7 +86,7 @@ const ProductTbody: FC<Props> = React.memo(({ data }) => {
               <div className='flex flex-col gap-1'>
                 {item.name}
                 <span className='text-gray-400 text-[10px] font-medium uppercase'>
-                  Category: {item.category}
+                  Category: {item.category?.name}
                 </span>
               </div>
             </th>
@@ -108,12 +108,12 @@ const ProductTbody: FC<Props> = React.memo(({ data }) => {
             <td className='p-4 font-medium'>{item.attributes?.length}</td>
             <td className='p-4 font-medium'>
               <div className='flex gap-3'>
-                <span>{item.colors?.join(",")}:</span>
-                <span>{item.sizes?.join(",")}</span>
+                <span>{Array.isArray(item.colors)? item.colors.join(","): item.colors}:</span>
+                <span>{Array.isArray(item.sizes)? item.sizes.join(","): item.sizes}</span>
               </div>
             </td>
-            <td className='p-4 font-medium'>{item.created_at}</td>
-            <td className='p-4 font-medium'>{item.updated_at}</td>
+            <td className='p-4 font-medium'>{item.createdAt}</td>
+            <td className='p-4 font-medium'>{item.updatedAt}</td>
             <td className='p-4'>
               <div
                 className='relative'

@@ -1,11 +1,15 @@
 /** @format */
 
-export type ProductStatusType = 'Available' | 'Disabled';
+import { Brand } from "./brand";
+import { Category } from "./category";
+
+export type ProductStatusType = "Available" | "Disabled";
+export type SortedByType = "Price" | "Sold" | "Total Earning";
 export interface Product {
   id: string;
   name: string;
   description: string;
-  category: string;
+  category: Category;
   tags: string[];
   shortDescription: string;
   status: ProductStatusType;
@@ -29,21 +33,23 @@ export interface Product {
   sizes?: string[];
   attributes?: string[];
   attributesValues?: string[];
-  brand: string;
+  brand: Brand;
   subCategory: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ProductState {
   product: Product | null;
   products: {
-    products: Product[],
-    success: boolean,
-    message: string,
-    total: number,
-    page: number
-    pageSize: number
+    products: Product[];
+    success: boolean;
+    message: string;
+    total: number;
+    totalPages: number;
+    page: number;
+    pageSize: number;
+    currentPage: number;
     productStatusCounts: {
       available: number;
       disabled: number;

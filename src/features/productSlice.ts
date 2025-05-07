@@ -11,6 +11,8 @@ const initialState: ProductState = {
     message: "",
     total: 0,
     page: 0,
+    totalPages: 0,
+    currentPage: 0,
     pageSize: 0,
     productStatusCounts: {
       available: 0,

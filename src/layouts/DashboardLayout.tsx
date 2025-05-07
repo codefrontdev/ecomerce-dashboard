@@ -17,7 +17,7 @@ const DashboardLayout = () => {
           <Navbar />
 
           {/* المحتوى القابل للتمرير */}
-          <div className='flex-1 overflow-y-auto max-h-full'>
+          <div className='flex-1 overflow-y-auto max-h-full pr-10'>
             <Outlet />
           </div>
         </div>

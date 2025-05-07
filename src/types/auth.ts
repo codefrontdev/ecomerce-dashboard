@@ -1,15 +1,26 @@
+import { UserDevice } from "./users";
+
 export interface User {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-    status: string;
-    profilePicture: string;
-    phone: string;
-    address: string;
-    createdAt: string;
-    updatedAt: string;
-    
+  id: string;
+  firstName: string;
+  lastName: string;
+  about: string;
+  website: string;
+  country: string;
+  city: string;
+  postalCode: string;
+  email: string;
+  role: string;
+  status: string;
+  profilePicture: {
+    publicId: string;
+    url: string;
+  };
+  deviceHistory: UserDevice[];
+  phone: string;
+  address: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface SignInResponse {

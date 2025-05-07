@@ -1,11 +1,22 @@
 /** @format */
 
-const ShoppingInfo = () => {
+import { FC } from "react";
+
+interface Props {
+  userInfo: {
+    phone: string| null,
+    address: string | null,
+    email: string,
+    name: string
+  }
+}
+
+const ShoppingInfo: FC<Props> = ({userInfo}) => {
   const info = {
-    fullName: "John Doe",
-    address: "123 Main Street, New York, USA",
-    phone: "+1 234 567 890",
-    email: "johndoe@example.com",
+    fullName: userInfo.name,
+    address: userInfo.address || "123 Main Street, New York, USA",
+    phone: userInfo.phone || "+1 234 567 890",
+    email: userInfo.email,
   };
 
   return (

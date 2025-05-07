@@ -33,9 +33,9 @@ const SignIn = () => {
   });
 
   const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
+    (state: RootState) => state.auth.user
   );
-  console.log("isAuthenticated");
+  console.log("isAuthenticated", isAuthenticated);
   
   useEffect(() => {
     if (isAuthenticated) {
@@ -60,7 +60,6 @@ const SignIn = () => {
             autoClose: 3000,
           });
           navigate("/");
-          dispatch(myAccount());
         }
       })
       .catch((error) => {

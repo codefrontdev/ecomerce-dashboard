@@ -1,5 +1,5 @@
 /** @format */
-import { lazy } from "react";
+import React, { lazy, useEffect, useMemo } from "react";
 
 const LayoutFilters = lazy(() => import("../../layouts/LayoutFilters"));
 const Nav = lazy(() => import("../../components/Nav"));
@@ -9,23 +9,26 @@ const Thead = lazy(() => import("../../components/table/Thead"));
 const ProductTbody = lazy(() => import("../../components/table/ProductTbody"));
 const CardItem = lazy(() => import("../../components/products/CardItem"));
 
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import { useState } from "react";
-import { useProductQuery } from "../../hooks/useProductQuery";
 import { productsListData } from "../../data/products";
 import LazyWrapper from "../../components/common/LazyWrapper";
 import Pagination from "../../components/Pagination";
+import { useProductQuery } from "../../hooks/useProductQuery";
+import { getAllCategories } from "../../features/categoriesSlice";
+import { getAllBrands } from "../../features/brandsSlice";
 
 const ProductsView = () => {
   const [viewType, setViewType] = useState<"grid" | "list">("list");
-  const [currentPage, setCurrentPage] = useState(1);
+  const dispatch: AppDispatch = useDispatch();
   
   const products = useSelector((state: RootState) => state.products.products);
   const { query, debouncedFilter } = useProductQuery();
 
-  console.log(query);
-  const handleCheckboxChange = (
+  console.log(products);
+  const handleCheckboxChange =
+  (
     title: string,
     value: string,
     checked: boolean
@@ -47,9 +50,13 @@ const ProductsView = () => {
 
   console.log(viewType);
 
+  useEffect(() => {
+    dispatch(getAllCategories({ query: "" }));
+    dispatch(getAllBrands({ query: "" }));
+  }, [dispatch]);
+
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
     debouncedFilter({ page });
   };
   return (
@@ -65,7 +72,7 @@ const ProductsView = () => {
 
       <div
         className={`${
-          viewType === "list" ? "col-span-9" : "col-span-12"
+          viewType === "list" ? "col-span-9 mr-10" : "col-span-12"
         } flex flex-col w-full bg-white dark:bg-gray-700 gap-5 px-6 py-5 rounded-lg`}>
         <LazyWrapper>
           <Nav
@@ -101,27 +108,23 @@ const ProductsView = () => {
           />
         </LazyWrapper>
 
-        {products.total === 0 && viewType === "grid" && (
+        {products.products.length === 0 && (
           <div className='text-sm flex items-center justify-center h-full text-gray-500 dark:text-gray-400 uppercase font-medium'>
             No results found
           </div>
         )}
 
-        {viewType === "list" && products.total > 0 ? (
+        {viewType === "list" && products.total > 0 && (
           <LazyWrapper>
             <LayoutTable>
               <Thead columns={productsListData.productColumns} />
               <ProductTbody data={products.products} />
             </LayoutTable>
           </LazyWrapper>
-        ) : (
-          <div className='text-sm flex items-center justify-center h-full text-gray-500 dark:text-gray-400 uppercase font-medium'>
-            No results found
-          </div>
-        )}
+        ) }
 
         {viewType === "grid" && (
-          <div className='grid grid-cols-4 gap-5'>
+          <div className='grid grid-cols-4 gap-5 '>
             {products.products.map((item) => (
               <LazyWrapper>
                 <CardItem key={item.id} item={item} />
@@ -136,8 +139,8 @@ const ProductsView = () => {
           </p>
           {/* Pagination can be added here */}
           <Pagination
-            currentPage={currentPage}
-            totalPages={products.total}
+            currentPage={products.currentPage}
+            totalPages={products.totalPages}
             onPageChange={handlePageChange}
           />
         </div>

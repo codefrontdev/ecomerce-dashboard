@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 interface Data {
     icon: React.ReactNode;
     label: string;
-    value: string;
+    value: string | number;
 }
 
 interface OrderCardProps {

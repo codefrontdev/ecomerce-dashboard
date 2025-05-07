@@ -6,9 +6,9 @@ import { RootState } from "../redux/store";
 const PrivateRoute = () => {
  
   const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
+    (state: RootState) => state.auth.user
   );
-console.log(isAuthenticated)
+  console.log(isAuthenticated);
   return isAuthenticated  ? (
     <Outlet />
   ) : (

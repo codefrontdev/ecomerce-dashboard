@@ -5,7 +5,7 @@ import apiClient from "./apiClient";
 
 export const productsService = {
   getProducts: async (query?: string) => {
-    const response = await apiClient.get(`/products?${query}`);
+    const response = await apiClient.get(`/products${query}`);
     return response.data;
   },
   getProductById: async (id: string) => {
