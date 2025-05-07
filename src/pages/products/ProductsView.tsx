@@ -1,5 +1,5 @@
 /** @format */
-import React, { lazy, useEffect, useMemo } from "react";
+import { lazy, useEffect } from "react";
 
 const LayoutFilters = lazy(() => import("../../layouts/LayoutFilters"));
 const Nav = lazy(() => import("../../components/Nav"));
