@@ -57,6 +57,7 @@ const CreateCustomers = () => {
     handleSubmit,
     register,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<Customer>({
     resolver: zodResolver(customerSchema),
@@ -68,22 +69,26 @@ const CreateCustomers = () => {
       formData.append(key, data[key as keyof Customer]);
     });
     dispatch(createUser(formData)).unwrap().then((result) => {
-      if(result.meta.requestStatus === "rejected") {
+      if(result?.meta?.requestStatus && result.meta.requestStatus === "rejected") {
         toast.error(result.error.message);
         return;
       }
-      if (result.meta.requestStatus === "fulfilled") {
+      if (result?.meta?.requestStatus && result.meta.requestStatus === "fulfilled") {
         toast.success(result.payload.message);
         return;
       }
 
-      if (result.meta.requestStatus === "pending") {
+      if (result?.meta?.requestStatus && result.meta.requestStatus === "pending") {
         toast.info("Creating customer...");
         return;
       }
+      console.log(result);
+
+      toast.success("Customer created successfully");
     }).catch((error) => {
       toast.error(error.message);
     });
+    reset()
   };
 
   return (
@@ -184,6 +189,9 @@ const CreateCustomers = () => {
             <Btn
               text="Cancel"
               type="button"
+              onClick={() => {
+                reset();
+              }}
               className="bg-gray-400 dark:text-white font-medium text-sm px-6 py-2.5 rounded-md"
             />
             <Btn
