@@ -1,15 +1,31 @@
 /** @format */
+import { lazy } from "react";
+const Section = lazy(() => import("../../components/fields/Section"));
+const InputField = lazy(
+  () =>
+    import("../../components/fields/InputField") as Promise<{
+      default: React.ComponentType<any>;
+    }>
+);
+const SelectField = lazy(
+  () =>
+    import("../../components/fields/SelectField") as Promise<{
+      default: React.ComponentType<any>;
+    }>
+);
+const FileUpload = lazy(
+  () =>
+    import("../../components/fields/FileUpload") as Promise<{
+      default: React.ComponentType<any>;
+    }>
+);
 
-import Section from "../../components/fields/Section";
-import InputField from "../../components/fields/InputField";
-import Btn from "../../components/Btn";
+import Form from "../../components/Form";
+const Btn = lazy(() => import("../../components/Btn"));
 import { z } from "zod";
 import { FieldError, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Form from "../../components/Form";
 import { Role, Status } from "../../types/users";
-import SelectField from "../../components/fields/SelectField";
-import FileUpload from "../../components/fields/FileUpload";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { createUser } from "../../features/usersSlice";
@@ -68,27 +84,39 @@ const CreateCustomers = () => {
     Object.keys(data).forEach((key) => {
       formData.append(key, data[key as keyof Customer]);
     });
-    dispatch(createUser(formData)).unwrap().then((result) => {
-      if(result?.meta?.requestStatus && result.meta.requestStatus === "rejected") {
-        toast.error(result.error.message);
-        return;
-      }
-      if (result?.meta?.requestStatus && result.meta.requestStatus === "fulfilled") {
-        toast.success(result.payload.message);
-        return;
-      }
+    dispatch(createUser(formData))
+      .unwrap()
+      .then((result) => {
+        if (
+          result?.meta?.requestStatus &&
+          result.meta.requestStatus === "rejected"
+        ) {
+          toast.error(result.error.message);
+          return;
+        }
+        if (
+          result?.meta?.requestStatus &&
+          result.meta.requestStatus === "fulfilled"
+        ) {
+          toast.success(result.payload.message);
+          return;
+        }
 
-      if (result?.meta?.requestStatus && result.meta.requestStatus === "pending") {
-        toast.info("Creating customer...");
-        return;
-      }
-      console.log(result);
+        if (
+          result?.meta?.requestStatus &&
+          result.meta.requestStatus === "pending"
+        ) {
+          toast.info("Creating customer...");
+          return;
+        }
+        console.log(result);
 
-      toast.success("Customer created successfully");
-    }).catch((error) => {
-      toast.error(error.message);
-    });
-    reset()
+        toast.success("Customer created successfully");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+    reset();
   };
 
   return (
@@ -145,7 +173,6 @@ const CreateCustomers = () => {
               errors={errors.address as FieldError}
               type="text"
             />
-
           </Section>
         </div>
         <div className="flex-1 flex flex-col bg-white dark:bg-gray-700 gap-5 rounded-lg p-5">

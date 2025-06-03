@@ -1,17 +1,28 @@
 /** @format */
 
+import { lazy } from "react";
 import { z } from "zod";
 import { useForm, SubmitHandler, FieldError } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { toast } from "react-toastify";
+import { createBrand } from "../../features/brandsSlice"; 
 import Form from "../../components/Form";
-import Section from "../../components/fields/Section";
-import InputField from "../../components/fields/InputField";
-import Btn from "../../components/Btn";
-import { createBrand } from "../../features/brandsSlice"; // أنشئ هذا في features
-import FileUpload from "../../components/fields/FileUpload";
+const Section = lazy(() => import("../../components/fields/Section"));
+const InputField = lazy(
+  () =>
+    import("../../components/fields/InputField") as Promise<{
+      default: React.ComponentType<any>;
+    }>
+);
+const Btn = lazy(() => import("../../components/Btn"));
+const FileUpload = lazy(
+  () =>
+    import("../../components/fields/FileUpload") as Promise<{
+      default: React.ComponentType<any>;
+    }>
+);
 
 // Define the maximum file size (8MB in bytes)
 const MAX_FILE_SIZE = 8 * 1024 * 1024;
